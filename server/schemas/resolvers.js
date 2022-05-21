@@ -9,6 +9,9 @@ const resolvers = {
         return User.findOne({ _id: context.user._id }).populate('savedBooks');
       }
       throw new AuthenticationError('You must be logged in!');
+    },
+    user: async (parent, { username }) => {
+      return User.findOne({ username }).populate('savedBooks');
     }
   },
 
@@ -50,7 +53,7 @@ const resolvers = {
       if (context.user) {
         const user = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedBooks: bookId } }
+          { $pull: { savedBooks: { bookId: bookId } } }
         );
 
         return user;

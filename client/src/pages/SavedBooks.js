@@ -9,13 +9,13 @@ import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
-  const [userData, setUserData] = useState({});
+  // const [userData, setUserData] = useState({});
 
   const { loading, data } = useQuery(GET_ME);
 
-  const user = data?.me || {};
+  const userData = data?.me || {};
 
-  setUserData(user);
+  // setUserData(user);
 
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
 
@@ -36,8 +36,8 @@ const SavedBooks = () => {
         throw new Error('something went wrong!');
       }
 
-      const updatedUser = data.removeBook;
-      setUserData(updatedUser);
+      // const updatedUser = data.removeBook;
+      // setUserData(updatedUser);
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
@@ -59,8 +59,8 @@ const SavedBooks = () => {
       </Jumbotron>
       <Container>
         <h2>
-          {userData.savedBooks.length
-            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
+          {userData?.savedBooks?.length
+            ? `Viewing ${userData?.savedBooks?.length} saved ${userData?.savedBooks?.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <CardColumns>
