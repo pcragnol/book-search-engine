@@ -9,9 +9,6 @@ const resolvers = {
         return User.findOne({ _id: context.user._id }).populate('savedBooks');
       }
       throw new AuthenticationError('You must be logged in!');
-    },
-    user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('savedBooks');
     }
   },
 
